@@ -1,0 +1,289 @@
+/*
+ * Reader.module.css —— 阅读器布局（CONTRACT §FE-reader）。
+ * 配色/字体一律走 theme.css 变量。
+ */
+
+.page {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 28px 24px 96px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
+}
+
+/* ===== 左侧目录 TOC ===== */
+.toc {
+  position: sticky;
+  top: 84px;
+  align-self: start;
+  max-height: calc(100vh - 108px);
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.tocTitle {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ink-faint);
+  letter-spacing: 0.06em;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+}
+
+.tocSection {
+  margin-bottom: 18px;
+}
+
+.tocSectionTitle {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+  margin: 0 0 6px;
+  padding-left: 2px;
+}
+
+.tocList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tocItem {
+  margin: 0;
+}
+
+.tocLink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: var(--r-sm);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+  border: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.tocLink:hover {
+  background: var(--paper-2);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.tocLinkActive {
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+  font-weight: 600;
+}
+
+.tocLockIcon {
+  margin-left: auto;
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  flex: none;
+}
+
+/* ===== 主内容 ===== */
+.main {
+  min-width: 0;
+}
+
+.header {
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.sectionLabel {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 1.9rem;
+  line-height: 1.25;
+  margin: 0 0 14px;
+  color: var(--ink);
+}
+
+.pager {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pagerBottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+/* ===== 内容区与防护 ===== */
+.contentWrap {
+  position: relative;
+  min-height: 240px;
+}
+
+.contentBlur {
+  filter: blur(8px);
+  pointer-events: none;
+  transition: filter 0.2s ease;
+}
+
+/* DevTools 警告遮罩（半透明，自动复检恢复，非永久白屏） */
+.devtoolsMask {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  background: rgba(27, 26, 23, 0.55);
+  backdrop-filter: blur(2px);
+}
+
+.devtoolsCard {
+  max-width: 420px;
+  padding: 28px 26px;
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-lg);
+}
+
+.devtoolsCard h3 {
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+}
+
+.devtoolsCard p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+/* ===== 锁定视图 ===== */
+.lockedWrap {
+  position: relative;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+
+.lockedFake {
+  filter: blur(6px);
+  user-select: none;
+  pointer-events: none;
+  padding: 8px 4px;
+}
+
+.lockedFakeLine {
+  height: 14px;
+  margin: 14px 0;
+  border-radius: var(--r-pill);
+  background: var(--line);
+}
+
+.lockedOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: linear-gradient(180deg, rgba(250, 247, 240, 0.4), rgba(250, 247, 240, 0.92));
+}
+
+.lockedCard {
+  max-width: 460px;
+  text-align: center;
+  padding: 34px 30px;
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+}
+
+.lockedBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 14px;
+  border-radius: var(--r-pill);
+  background: var(--gold-soft);
+  color: var(--gold);
+  font-size: 1.5rem;
+}
+
+.lockedTitle {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  margin: 0 0 10px;
+}
+
+.lockedText {
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+  margin: 0 0 22px;
+}
+
+.lockedActions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ===== 状态提示 ===== */
+.status {
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.statusError {
+  color: var(--danger);
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .toc {
+    position: static;
+    max-height: none;
+    order: 2;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+
+  .main {
+    order: 1;
+  }
+
+  .title {
+    font-size: 1.55rem;
+  }
+}

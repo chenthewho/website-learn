@@ -1,0 +1,267 @@
+/*
+ * markdown.css —— 阅读器正文排版（CONTRACT §FE-reader / §7）。
+ * 所有配色/字体一律使用 theme.css 的 CSS 变量，禁止硬编码色值。
+ * 代码块高亮配色来自 highlight.js 的 atom-one-dark 主题（由 MarkdownView 引入）。
+ */
+
+/* ===== 内容根容器 ===== */
+.markdown-body {
+  font-family: var(--font-sans);
+  color: var(--ink);
+  font-size: 1.02rem;
+  line-height: 1.85;
+  word-wrap: break-word;
+  /* 内容区禁止选中（提高复制门槛，配合 useProtection） */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ===== 标题（衬线） ===== */
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--ink);
+  /* 锚点跳转时留出导航高度 */
+  scroll-margin-top: 88px;
+}
+
+.markdown-body h1 {
+  font-size: 2rem;
+  margin: 0 0 1rem;
+}
+
+.markdown-body h2 {
+  font-size: 1.55rem;
+  margin: 2.2rem 0 0.9rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.markdown-body h3 {
+  font-size: 1.28rem;
+  margin: 1.8rem 0 0.7rem;
+}
+
+.markdown-body h4 {
+  font-size: 1.1rem;
+  margin: 1.5rem 0 0.6rem;
+}
+
+.markdown-body h5,
+.markdown-body h6 {
+  font-size: 1rem;
+  color: var(--ink-soft);
+  margin: 1.3rem 0 0.5rem;
+}
+
+/* ===== 段落 / 链接 ===== */
+.markdown-body p {
+  margin: 0 0 1.1em;
+}
+
+.markdown-body a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent-soft);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.markdown-body a:hover {
+  color: var(--accent-ink);
+  border-bottom-color: var(--accent);
+}
+
+/* ===== 列表 ===== */
+.markdown-body ul,
+.markdown-body ol {
+  margin: 0 0 1.1em;
+  padding-left: 1.5em;
+}
+
+.markdown-body li {
+  margin: 0.3em 0;
+}
+
+.markdown-body li::marker {
+  color: var(--ink-faint);
+}
+
+/* GFM 任务列表 */
+.markdown-body li input[type='checkbox'] {
+  margin-right: 0.5em;
+  accent-color: var(--accent);
+}
+
+/* ===== 引用 blockquote（左竖线 + 灰底） ===== */
+.markdown-body blockquote {
+  margin: 1.3em 0;
+  padding: 0.6em 1.1em;
+  border-left: 4px solid var(--accent);
+  background: var(--paper-2);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  color: var(--ink-soft);
+}
+
+.markdown-body blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* ===== 行内代码（浅底圆角） ===== */
+.clw-code-inline {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  padding: 0.12em 0.4em;
+  border-radius: var(--r-sm);
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+  white-space: break-spaces;
+}
+
+/* ===== 代码块（深色、圆角、横向滚动、mono） ===== */
+.clw-codeblock {
+  position: relative;
+  margin: 1.3rem 0;
+}
+
+.clw-codeblock__lang {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  padding: 0.15em 0.7em;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  background: var(--paper-2);
+  border-radius: 0 var(--r-md) 0 var(--r-sm);
+  user-select: none;
+}
+
+.clw-pre {
+  margin: 0;
+  border-radius: var(--r-md);
+  overflow-x: auto;
+  background: var(--ink);
+  box-shadow: var(--shadow-sm);
+}
+
+.clw-pre code {
+  display: block;
+  padding: 1rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  line-height: 1.7;
+  color: var(--paper);
+  background: transparent;
+  white-space: pre;
+  tab-size: 2;
+}
+
+/* 统一深色底：让 hljs 主题的 token 前景色落在一致的 --ink 背景上 */
+.clw-pre code.hljs {
+  background: var(--ink);
+  padding: 1rem 1.25rem;
+}
+
+/* mermaid 渲染失败时的回退代码块（标注语义） */
+.clw-pre--fallback {
+  margin: 1.5rem 0;
+}
+
+/* ===== 表格（GFM：边框 + 斑马纹） ===== */
+.markdown-body table {
+  width: 100%;
+  margin: 1.4rem 0;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  overflow: hidden;
+  border-radius: var(--r-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+.markdown-body th,
+.markdown-body td {
+  padding: 0.55em 0.9em;
+  border: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.markdown-body thead th {
+  background: var(--paper-2);
+  color: var(--ink);
+  font-weight: 700;
+  border-bottom: 2px solid var(--line-strong);
+}
+
+.markdown-body tbody tr:nth-child(even) {
+  background: var(--paper);
+}
+
+.markdown-body tbody tr:nth-child(odd) {
+  background: var(--surface);
+}
+
+/* 表格横向滚动包裹（react-markdown 默认不包裹，超宽时由内容容器滚动） */
+.markdown-body table {
+  display: block;
+  overflow-x: auto;
+}
+
+/* ===== 图片自适应 ===== */
+.markdown-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-sm);
+  margin: 1rem 0;
+}
+
+/* ===== 分隔线 ===== */
+.markdown-body hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 2.2rem 0;
+}
+
+/* ===== Mermaid 容器 ===== */
+.clw-mermaid {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+}
+
+.clw-mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ===== 强调 ===== */
+.markdown-body strong {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.markdown-body em {
+  font-style: italic;
+}
+
+.markdown-body kbd {
+  font-family: var(--font-mono);
+  font-size: 0.82em;
+  padding: 0.1em 0.45em;
+  border: 1px solid var(--line-strong);
+  border-bottom-width: 2px;
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  color: var(--ink);
+}

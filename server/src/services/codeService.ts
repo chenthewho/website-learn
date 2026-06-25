@@ -53,32 +53,11 @@ export async function redeemCode(
   const code = normalizeCode(rawCode);
 
   return withTransaction<RedeemResult>(async (conn) => {
-    // 1) 锁码行
-    const [codeRows] = await conn.query<CodeRow[]>(
-      'SELECT id, code, max_uses, used_count, note, expires_at, created_at FROM redemption_codes WHERE code = ? FOR UPDATE',
-      [code]
-    );
-    const codeRow = codeRows[0];
+    // 加锁顺序固定为「先用户行、后码行」，避免与其它事务交叉加锁产生死锁。
 
-    // 2) 不存在
-    if (!codeRow) {
-      return { ok: false, code: 'INVALID_CODE' };
-    }
-
-    // 3) 已过期（NULL 表示永不过期）
-    if (
-      codeRow.expires_at !== null &&
-      new Date(codeRow.expires_at).getTime() <= Date.now()
-    ) {
-      return { ok: false, code: 'CODE_EXPIRED' };
-    }
-
-    // 4) 次数耗尽
-    if (codeRow.used_count >= codeRow.max_uses) {
-      return { ok: false, code: 'CODE_EXHAUSTED' };
-    }
-
-    // 5) 锁用户行并判断是否已解锁
+    // 1) 锁用户行并优先判断是否已解锁。
+    //    已解锁的用户提交任何码（有效/过期/用尽/无效）都直接返回 ALREADY_HAS_ACCESS，
+    //    既消息一致，又绝不为已解锁用户白白消耗一个码。
     const [userRows] = await conn.query<(RowDataPacket & { has_access: number })[]>(
       'SELECT has_access FROM users WHERE id = ? FOR UPDATE',
       [userId]
@@ -90,6 +69,31 @@ export async function redeemCode(
     }
     if (userRow.has_access === 1) {
       return { ok: false, code: 'ALREADY_HAS_ACCESS' };
+    }
+
+    // 2) 锁码行
+    const [codeRows] = await conn.query<CodeRow[]>(
+      'SELECT id, code, max_uses, used_count, note, expires_at, created_at FROM redemption_codes WHERE code = ? FOR UPDATE',
+      [code]
+    );
+    const codeRow = codeRows[0];
+
+    // 3) 不存在
+    if (!codeRow) {
+      return { ok: false, code: 'INVALID_CODE' };
+    }
+
+    // 4) 已过期（NULL 表示永不过期）
+    if (
+      codeRow.expires_at !== null &&
+      new Date(codeRow.expires_at).getTime() <= Date.now()
+    ) {
+      return { ok: false, code: 'CODE_EXPIRED' };
+    }
+
+    // 5) 次数耗尽
+    if (codeRow.used_count >= codeRow.max_uses) {
+      return { ok: false, code: 'CODE_EXHAUSTED' };
     }
 
     // 6) 落库：码次数 +1、记录兑换流水、置用户解锁

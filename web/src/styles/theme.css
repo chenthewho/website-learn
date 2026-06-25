@@ -1,0 +1,187 @@
+/*
+ * 设计系统单一事实来源（CONTRACT §7）：CSS 变量（设计 token）+ 全局 reset。
+ * 所有 UI 组件一律复用这些变量，禁止硬编码色值/字体。
+ * 风格参照 socratopia：学术 + 温暖纸感 + 克制的活泼。
+ */
+
+:root {
+  /* 颜色 */
+  --paper: #faf7f0;
+  --paper-2: #f3eee3;
+  --surface: #ffffff;
+  --ink: #1b1a17;
+  --ink-soft: #5a5246;
+  --ink-faint: #8c8472;
+  --accent: #5a4fe0;
+  --accent-ink: #3a32a8;
+  --accent-soft: #ece9fb;
+  --gold: #e0a335;
+  --gold-soft: #fbf1dc;
+  --success: #2f855a;
+  --danger: #c0392b;
+  --line: #e9e1d2;
+  --line-strong: #d9cfba;
+
+  /* 字体 */
+  --font-serif: "Noto Serif SC", "Source Han Serif SC", Georgia, "Songti SC", serif;
+  --font-sans: "Noto Sans SC", Inter, system-ui, -apple-system, "PingFang SC", sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, Menlo, monospace;
+
+  /* 间距 / 圆角 / 阴影 */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --r-pill: 999px;
+  --shadow-sm: 0 1px 2px rgba(27, 26, 23, 0.06), 0 1px 1px rgba(27, 26, 23, 0.04);
+  --shadow-md: 0 8px 24px rgba(27, 26, 23, 0.08);
+  --shadow-lg: 0 24px 60px rgba(58, 50, 168, 0.12);
+  --maxw: 1120px;
+}
+
+/* ===== 全局 reset ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* 滚动条（Firefox） */
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  /* 默认禁止选中以提高内容复制门槛；表单输入单独放开（见下） */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* 标题统一使用衬线字体 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 0.5em;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+ul,
+ol {
+  margin: 0 0 1em;
+  padding-left: 1.4em;
+}
+
+/* 链接：accent 主色，hover 加深 */
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+a:hover {
+  color: var(--accent-ink);
+  text-decoration: underline;
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--font-mono);
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 表单控件继承字体，并显式放开选中以保证可用性 */
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+input,
+textarea,
+select {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 2rem 0;
+}
+
+/* 无障碍：键盘聚焦可见 */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* 选区配色 */
+::selection {
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+}
+
+/* 滚动条（WebKit） */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border: 2px solid var(--paper);
+  border-radius: var(--r-pill);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-faint);
+}
+
+/* 应用根容器：纵向撑满，便于页脚吸底布局 */
+#root {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}

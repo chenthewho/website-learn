@@ -1,0 +1,33 @@
+/* 页脚：略深纸底，居中寄语。颜色取自 theme.css。 */
+.footer {
+  margin-top: 4rem;
+  background: var(--paper-2);
+  border-top: 1px solid var(--line);
+}
+
+.inner {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.letter {
+  max-width: 46rem;
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--ink-soft);
+}
+
+.copy {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+}

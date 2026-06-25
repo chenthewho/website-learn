@@ -1,0 +1,114 @@
+/* 按钮：pill 圆角，三种形态 + 三种尺寸。颜色全部取自 theme.css 变量。 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  user-select: none;
+  transition: transform 0.12s ease, background 0.15s ease, color 0.15s ease,
+    border-color 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.loading {
+  cursor: progress;
+}
+
+/* ===== 尺寸 ===== */
+.sm {
+  padding: 0.4rem 0.95rem;
+  font-size: 0.85rem;
+}
+
+.md {
+  padding: 0.62rem 1.35rem;
+  font-size: 0.95rem;
+}
+
+.lg {
+  padding: 0.85rem 1.85rem;
+  font-size: 1.05rem;
+}
+
+/* ===== 形态 ===== */
+/* 主态：accent 实心，白字（用 --surface 取白，避免硬编码） */
+.primary {
+  background: var(--accent);
+  color: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--accent-ink);
+  box-shadow: var(--shadow-md);
+}
+
+/* 次态：描边幽灵按钮 */
+.ghost {
+  background: transparent;
+  color: var(--accent);
+  border-color: var(--line-strong);
+}
+
+.ghost:hover:not(:disabled) {
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+
+/* 金色态：暖金实心，深墨字（对比更佳） */
+.gold {
+  background: var(--gold);
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+}
+
+.gold:hover:not(:disabled) {
+  filter: brightness(0.97);
+  box-shadow: var(--shadow-md);
+}
+
+/* ===== 加载旋转图标 ===== */
+.spinner {
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: btn-spin 0.62s linear infinite;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+}
+
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+  .spinner {
+    animation-duration: 1.4s;
+  }
+}

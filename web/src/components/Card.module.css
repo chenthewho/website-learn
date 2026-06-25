@@ -1,0 +1,8 @@
+/* 纸感卡片：白底、细描边、柔和阴影、中等圆角。颜色取自 theme.css。 */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-sm);
+  padding: 1.25rem 1.4rem;
+}

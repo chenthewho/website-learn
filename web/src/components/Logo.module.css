@@ -1,0 +1,35 @@
+/* 文字标识：衬线字 + 强调色图标。尺寸通过 font-size 联动 svg。 */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.mark {
+  display: inline-flex;
+  color: var(--accent);
+}
+
+.icon {
+  width: 1.2em;
+  height: 1.2em;
+  display: block;
+}
+
+.word {
+  letter-spacing: 0.01em;
+}
+
+/* 尺寸：sm 用于导航/页脚，md 用于较大处 */
+.sm {
+  font-size: 1.05rem;
+}
+
+.md {
+  font-size: 1.35rem;
+}

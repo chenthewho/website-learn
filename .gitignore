@@ -1,0 +1,29 @@
+# 依赖
+node_modules/
+**/node_modules/
+
+# 构建产物
+dist/
+build/
+*.tsbuildinfo
+
+# 环境变量（含密钥，绝不提交）
+.env
+**/.env
+!**/.env.example
+
+# 日志与缓存
+*.log
+npm-debug.log*
+.DS_Store
+.cache/
+coverage/
+
+# Docker 数据卷
+.docker-data/
+mysql-data/
+
+# 编辑器
+.vscode/
+.idea/
+.scratch/

@@ -23,6 +23,9 @@ coverage/
 .docker-data/
 mysql-data/
 
+# 课程明文内容（绝不提交，避免源文泄露；仅作本地导入源）
+server/content/
+
 # 编辑器
 .vscode/
 .idea/

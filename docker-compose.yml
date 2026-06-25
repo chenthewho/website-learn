@@ -1,0 +1,34 @@
+# MySQL 8 数据库服务（开发用）。
+# 首次启动时会自动执行挂载到 /docker-entrypoint-initdb.d 的 schema.sql 建库建表。
+# 注意：initdb 脚本仅在数据卷为空（首次创建）时执行；如需重新建表请 `docker compose down -v` 清空卷后再起。
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: course-mysql
+    restart: unless-stopped
+    # root 密码与 server/.env 中的 DB_PASSWORD 保持一致（course_pw）
+    environment:
+      MYSQL_ROOT_PASSWORD: course_pw
+      MYSQL_DATABASE: course_learn
+      # 统一 utf8mb4，避免中文乱码
+      LANG: C.UTF-8
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_0900_ai_ci
+    ports:
+      - "3306:3306"
+    volumes:
+      # 命名卷持久化数据
+      - mysql-data:/var/lib/mysql
+      # 首次启动自动建库建表（只读挂载）
+      - ./server/db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-pcourse_pw"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+volumes:
+  mysql-data:
+    name: mysql-data

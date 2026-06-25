@@ -1,0 +1,28 @@
+{
+  "name": "website-learn",
+  "version": "1.0.0",
+  "private": true,
+  "description": "课程学习平台（模仿 socratopia 风格的付费课程展示/阅读网站）。前端 React+Vite，后端 Node+Express+MySQL。本根包不安装依赖，仅声明 workspaces 与便捷转发脚本——依赖各自在 server/ 与 web/ 中安装。",
+  "workspaces": [
+    "server",
+    "web"
+  ],
+  "scripts": {
+    "dev:server": "npm --prefix server run dev",
+    "dev:web": "npm --prefix web run dev",
+    "build:server": "npm --prefix server run build",
+    "build:web": "npm --prefix web run build",
+    "typecheck:server": "npm --prefix server run typecheck",
+    "typecheck:web": "npm --prefix web run typecheck",
+    "import": "npm --prefix server run import",
+    "gen-codes": "npm --prefix server run gen-codes",
+    "list-users": "npm --prefix server run list-users",
+    "grant-access": "npm --prefix server run grant-access",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "db:reset": "docker compose down -v"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES2021",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strict": true,
+    "outDir": "dist",
+    // rootDir 上移到仓库根：server/src 与 shared/types.ts 同处一个编译根之下，
+    // 使 shared 契约类型可被 server 直接 import（否则 rootDir=src 会触发 TS6059）。
+    // 因此构建产物位于 dist/server/src/index.js（start 脚本已对应调整）。
+    "rootDir": "..",
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*.ts", "../shared/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

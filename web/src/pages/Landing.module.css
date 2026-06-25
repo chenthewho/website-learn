@@ -1,0 +1,507 @@
+/*
+ * Landing.module.css —— 营销落地页样式（FE-Landing 拥有）。
+ * 颜色/字体一律取自 theme.css 的 CSS 变量；充足留白、纸感、紫靛/暖金点缀、柔和阴影、悬浮微交互。
+ */
+
+.page {
+  width: 100%;
+}
+
+/* 通用区块容器：居中限宽 + 纵向留白 */
+.section {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: clamp(56px, 9vw, 104px) 24px;
+}
+
+/* 交替区块：纸感 2 号底色 + 通栏背景（用负 margin 撑满，再用内层限宽） */
+.sectionAlt {
+  max-width: none;
+  padding-left: 24px;
+  padding-right: 24px;
+  background: var(--paper-2);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.sectionAlt > * {
+  max-width: var(--maxw);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== ① Hero ====================================================== */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(60% 80% at 12% 0%, var(--accent-soft) 0%, rgba(0, 0, 0, 0) 60%),
+    radial-gradient(50% 70% at 100% 10%, var(--gold-soft) 0%, rgba(0, 0, 0, 0) 55%),
+    var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+
+.heroInner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: clamp(56px, 9vw, 112px) 24px clamp(64px, 10vw, 120px);
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+
+.heroCopy {
+  min-width: 0;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 6px 16px;
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  box-shadow: var(--shadow-sm);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+}
+
+.title {
+  margin: 0 0 22px;
+  font-family: var(--font-serif);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 6.4vw, 4.4rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.titleAccent {
+  background: linear-gradient(120deg, var(--accent) 0%, var(--gold) 120%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  max-width: 38ch;
+  margin: 0 0 36px;
+  font-size: clamp(1.02rem, 1.6vw, 1.22rem);
+  line-height: 1.75;
+  color: var(--ink-soft);
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+.unlockedNote {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 18px;
+  border-radius: var(--r-pill);
+  background: var(--gold-soft);
+  border: 1px solid var(--gold);
+  color: var(--accent-ink);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.heroHint {
+  margin: 22px 0 0;
+  font-size: 0.92rem;
+  color: var(--ink-faint);
+}
+
+.textLink {
+  font-weight: 600;
+  color: var(--accent);
+}
+.textLink:hover {
+  color: var(--accent-ink);
+}
+
+/* --- Hero 对话意象卡片 --- */
+.heroAside {
+  min-width: 0;
+}
+
+.chatCard {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  transform: rotate(-1.2deg);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.chatCard:hover {
+  transform: rotate(0deg) translateY(-4px);
+}
+
+.chatHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 18px;
+  background: var(--paper-2);
+  border-bottom: 1px solid var(--line);
+}
+.chatDot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--r-pill);
+  background: var(--line-strong);
+}
+.chatTitle {
+  margin-left: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+}
+
+.chatBody {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 22px 20px;
+}
+
+.msg {
+  max-width: 86%;
+  padding: 12px 16px;
+  border-radius: var(--r-md);
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+.msgUser {
+  align-self: flex-end;
+  background: var(--accent);
+  color: var(--surface);
+  border-bottom-right-radius: var(--r-sm);
+}
+.msgAgent {
+  align-self: flex-start;
+  background: var(--paper-2);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-bottom-left-radius: var(--r-sm);
+}
+
+.toolTag {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 3px 10px;
+  border-radius: var(--r-pill);
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+}
+
+.chatFoot {
+  padding: 14px 20px;
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+  text-align: center;
+}
+
+/* ===== 区块通用标题 =============================================== */
+.sectionHead {
+  max-width: 56ch;
+  margin: 0 auto clamp(36px, 5vw, 60px);
+  text-align: center;
+}
+
+.kicker {
+  display: inline-block;
+  margin-bottom: 14px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.sectionTitle {
+  margin: 0 0 14px;
+  font-size: clamp(1.7rem, 3.6vw, 2.6rem);
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.sectionLead {
+  margin: 0;
+  font-size: clamp(1rem, 1.4vw, 1.12rem);
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+.sectionFoot {
+  margin-top: 36px;
+  text-align: center;
+  font-size: 1.02rem;
+}
+
+/* ===== ② 学习篇章卡片 ============================================ */
+.chapterGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 22px;
+}
+
+.chapterCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 28px 24px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.chapterCard:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--line-strong);
+}
+
+.chapterTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.chapterIcon {
+  font-size: 2rem;
+  line-height: 1;
+}
+.chapterNum {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--gold);
+}
+
+.chapterName {
+  margin: 0;
+  font-size: 1.28rem;
+  color: var(--ink);
+}
+.chapterDesc {
+  margin: 0;
+  font-size: 0.96rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+/* ===== ③ 三大特点 ================================================ */
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.featureCard {
+  padding: 34px 28px;
+  text-align: left;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.featureCard:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+}
+
+.featureIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 18px;
+  border-radius: var(--r-md);
+  background: var(--accent-soft);
+  font-size: 1.7rem;
+}
+.featureTitle {
+  margin: 0 0 10px;
+  font-size: 1.22rem;
+  color: var(--ink);
+}
+.featureDesc {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.75;
+  color: var(--ink-soft);
+}
+
+/* ===== ④ 解锁流程 ================================================ */
+.stepFlow {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.step {
+  position: relative;
+  padding: 32px 26px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+.stepNum {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 16px;
+  border-radius: var(--r-pill);
+  background: var(--accent);
+  color: var(--surface);
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-md);
+}
+.stepTitle {
+  margin: 0 0 8px;
+  font-size: 1.18rem;
+  color: var(--ink);
+}
+.stepDesc {
+  margin: 0;
+  font-size: 0.94rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+.stepArrow {
+  position: absolute;
+  top: 50%;
+  right: -22px;
+  transform: translateY(-50%);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--line-strong);
+  z-index: 1;
+}
+
+/* ===== ⑤ 数据点缀 ================================================ */
+.statRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  text-align: center;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 16px;
+}
+.statNum {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(120deg, var(--accent) 0%, var(--gold) 130%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.statLabel {
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+}
+
+/* ===== 收尾 CTA band ============================================= */
+.ctaBand {
+  background:
+    radial-gradient(60% 120% at 50% 0%, var(--accent-soft) 0%, rgba(0, 0, 0, 0) 60%),
+    var(--paper);
+  border-top: 1px solid var(--line);
+}
+.ctaBandInner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: clamp(64px, 10vw, 120px) 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 18px;
+}
+.ctaBandTitle {
+  margin: 8px 0 0;
+  font-size: clamp(1.8rem, 4vw, 2.7rem);
+  line-height: 1.2;
+  color: var(--ink);
+}
+.ctaBandText {
+  max-width: 46ch;
+  margin: 0 0 12px;
+  font-size: clamp(1rem, 1.5vw, 1.14rem);
+  line-height: 1.75;
+  color: var(--ink-soft);
+}
+
+/* ===== 响应式 ==================================================== */
+@media (max-width: 880px) {
+  .heroInner {
+    grid-template-columns: 1fr;
+  }
+  .heroAside {
+    order: -1;
+    max-width: 440px;
+  }
+  .chatCard {
+    transform: rotate(0deg);
+  }
+  .stepFlow {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .stepArrow {
+    top: auto;
+    right: 50%;
+    bottom: -22px;
+    transform: translateX(50%) rotate(90deg);
+  }
+  .statRow {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 16px;
+  }
+}
+
+@media (max-width: 520px) {
+  .ctaRow {
+    width: 100%;
+  }
+}
+
+/* 尊重「减少动态效果」偏好 */
+@media (prefers-reduced-motion: reduce) {
+  .chapterCard,
+  .featureCard,
+  .chatCard {
+    transition: none;
+  }
+  .chapterCard:hover,
+  .featureCard:hover,
+  .chatCard:hover {
+    transform: none;
+  }
+}
